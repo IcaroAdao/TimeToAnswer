@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>TimeToAnswer</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application' %>
+    <%= stylesheet_link_tag    'site' %>
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <!-- Static navbar -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <%= link_to 'Time to Answer', root_path, class:"navbar-brand"%>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse d-flex justify-content-end">
+          <%= form_with(url: site_search_path, local: true, method: :get, class:"form-inline my-2 my-lg-0") do |form| %>
+            <%= form.text_field :term, class:"form-control mr-sm-2", placeholder:"Pesquisar..." %>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          <% end %>
+          <ul class="navbar-nav">
+            <% unless user_signed_in? %>
+              <li class="nav-item">
+                <%= link_to 'Entrar', new_user_session_path, class:"nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Cadastrar', new_user_registration_path, class:"nav-link" %>
+              </li>
+            <% else %>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <%= current_user.email %>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <%= link_to users_backoffice_welcome_index_path, class:"dropdown-item" do%>
+                    <i class="fas fa-user"></i> Perfil
+                  <% end %>
+                  <div class="dropdown-divider"></div>
+                  <%= link_to destroy_user_session_path, method: :delete, class:"dropdown-item" do%>
+                    <i class="fas fa-sign-out-alt"></i> Sair
+                  <% end %>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- Main component for a primary marketing message or call to action -->
+      <%= yield %>
+    </div> <!-- /container -->
+
+
+    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag 'site' %>
+
+    <% if notice %> 
+      <%= javascript_tag do %>
+        $.bootstrapGrowl('<%= notice %>', {
+          type: 'success',
+          align: 'right',
+          allow_dismiss: true,
+          stackup_spacing: 10
+        });
+      <% end %>  
+    <% end %>
+  </body>
+</html>

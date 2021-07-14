@@ -1,0 +1,22 @@
+var selectedButton = document.getElementById('submit_<%= @answer.question_id %>');
+
+selectedButton.classList.remove('btn-outline-secondary');
+selectedButton.classList.remove('btn-success');
+selectedButton.classList.remove('btn-danger');
+
+var renderizarMensagem = (mensagem, tipo) => (
+  $.bootstrapGrowl(mensagem, {
+    type: tipo,
+    align: 'right',
+    allow_dismiss: true,
+    stackup_spacing: 10
+  })
+)
+
+if (<%= @answer.correct %>) {
+  selectedButton.classList.add('btn-success');
+  renderizarMensagem('Resposta correta!', 'success')
+} else {
+  selectedButton.classList.add('btn-danger');
+  renderizarMensagem('Resposta errada...', 'danger')
+}

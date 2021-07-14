@@ -1,0 +1,34 @@
+<h1>Seja bem-vindo!</h1>
+
+<div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
+  <div class="tile-stats">
+    <div class="icon"><i class="fa fa-check-square-o"></i></div>
+    <div class="count">
+      <%= @user_statistc.right_questions %>
+    </div>
+    <h3>Respostas certas</h3>
+    <p>Parabéns, continue estudando!</p>
+  </div>
+</div>
+
+<div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
+  <div class="tile-stats">
+    <div class="icon"><i class="fa fa-close"></i></div>
+    <div class="count">
+      <%= @user_statistc.wrong_questions %>
+    </div>
+    <h3>Respostas erradas</h3>
+    <p>Continue estudando e tente denovo!</p>
+  </div>
+</div>
+
+<div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
+  <div class="tile-stats">
+    <div class="icon"><i class="fa fa-comments-o"></i></div>
+    <div class="count">
+      <%= @user_statistc.total_questions %>
+    </div>
+    <h3>Total de respostas</h3>
+    <p>Quantidade total de perguntas respondidas</p>
+  </div>
+</div>
